@@ -94,3 +94,4 @@ Was aus der Excel-Vorlage noch fehlt und bei Bedarf ergänzt werden kann:
 Jahresübersicht, Fix-/Variabel-Aufschlüsselung im Dashboard, Bearbeiten
 bestehender Buchungen, CSV-Export. Sag einfach Bescheid, was als Nächstes dran soll.
 # haushaltsbuch
+# haushaltsbuch
