@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Haushaltsbuch</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- ===================== LOGIN / REGISTRIEREN ===================== -->
+<div id="auth-screen" class="auth-screen">
+  <div class="auth-card">
+    <h1>💶 Haushaltsbuch</h1>
+    <p class="auth-sub">Melde dich an, um deine Daten von jedem Gerät zu sehen.</p>
+
+    <form id="auth-form">
+      <label for="email">E-Mail</label>
+      <input type="email" id="email" required autocomplete="email">
+
+      <label for="password">Passwort</label>
+      <input type="password" id="password" required autocomplete="current-password" minlength="6">
+
+      <div id="auth-error" class="auth-error"></div>
+
+      <div class="auth-buttons">
+        <button type="submit" id="btn-login" class="btn btn-primary">Anmelden</button>
+        <button type="button" id="btn-signup" class="btn btn-secondary">Registrieren</button>
+      </div>
+    </form>
+    <p class="auth-hint">Neu hier? Klicke auf "Registrieren", um ein Konto mit dieser E-Mail/Passwort-Kombination anzulegen.</p>
+  </div>
+</div>
+
+<!-- ===================== APP ===================== -->
+<div id="app-screen" class="app-screen hidden">
+
+  <header class="topbar">
+    <h1>💶 Haushaltsbuch</h1>
+    <div class="topbar-right">
+      <span id="user-email" class="user-email"></span>
+      <button id="btn-logout" class="btn btn-ghost">Abmelden</button>
+    </div>
+  </header>
+
+  <main class="content">
+
+    <!-- KPI cards -->
+    <section class="kpi-row" id="kpi-row">
+      <div class="kpi-card kpi-income">
+        <span class="kpi-label">Einnahmen (Monat)</span>
+        <span class="kpi-value" id="kpi-income">0,00 €</span>
+      </div>
+      <div class="kpi-card kpi-expense">
+        <span class="kpi-label">Ausgaben (Monat)</span>
+        <span class="kpi-value" id="kpi-expense">0,00 €</span>
+      </div>
+      <div class="kpi-card kpi-balance">
+        <span class="kpi-label">Saldo (Monat)</span>
+        <span class="kpi-value" id="kpi-balance">0,00 €</span>
+      </div>
+      <div class="kpi-card kpi-rate">
+        <span class="kpi-label">Sparquote (Monat)</span>
+        <span class="kpi-value" id="kpi-rate">0,0 %</span>
+      </div>
+    </section>
+
+    <!-- New transaction form -->
+    <section class="card">
+      <h2>Neue Buchung</h2>
+      <form id="tx-form" class="tx-form">
+        <div class="field">
+          <label for="tx-date">Datum</label>
+          <input type="date" id="tx-date" required>
+        </div>
+        <div class="field">
+          <label for="tx-type">Typ</label>
+          <select id="tx-type" required>
+            <option value="Einnahme">Einnahme</option>
+            <option value="Ausgabe" selected>Ausgabe</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="tx-category">Kategorie</label>
+          <select id="tx-category" required></select>
+        </div>
+        <div class="field field-wide">
+          <label for="tx-description">Beschreibung</label>
+          <input type="text" id="tx-description" placeholder="z. B. Wocheneinkauf Supermarkt">
+        </div>
+        <div class="field">
+          <label for="tx-amount">Betrag (€)</label>
+          <input type="number" id="tx-amount" step="0.01" min="0" required placeholder="0,00">
+        </div>
+        <div class="field field-btn">
+          <button type="submit" class="btn btn-primary">Hinzufügen</button>
+        </div>
+      </form>
+      <div id="tx-error" class="auth-error"></div>
+    </section>
+
+    <!-- Charts -->
+    <section class="chart-row">
+      <div class="card chart-card">
+        <h2>Ausgaben nach Kategorie (Monat)</h2>
+        <canvas id="chart-pie"></canvas>
+      </div>
+      <div class="card chart-card">
+        <h2>Einnahmen vs. Ausgaben (letzte 6 Monate)</h2>
+        <canvas id="chart-bar"></canvas>
+      </div>
+    </section>
+
+    <!-- Transactions list -->
+    <section class="card">
+      <h2>Buchungen</h2>
+      <div class="table-wrap">
+        <table id="tx-table">
+          <thead>
+            <tr>
+              <th>Datum</th>
+              <th>Typ</th>
+              <th>Kategorie</th>
+              <th>Beschreibung</th>
+              <th class="col-amount">Betrag</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="tx-tbody"></tbody>
+        </table>
+        <p id="tx-empty" class="empty-hint hidden">Noch keine Buchungen vorhanden. Füge oben deine erste Buchung hinzu.</p>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<!-- Supabase client + Chart.js (from CDN) -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4"></script>
+<script src="js/config.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
